@@ -1,22 +1,17 @@
-#pragma semicolon 1
-
-#define DEBUG
-
-#define PLUGIN_AUTHOR "quantum."
-#define PLUGIN_VERSION "1.00"
-#define SITE "https://steamcommunity.com/id/quascave"
-
 #include <sourcemod>
 #include <sdktools>
 #include <nextmap>
 
+#pragma semicolon 1
+#pragma newdecls required
+
 public Plugin myinfo = 
 {
 	name = "Quick Restart",
-	author = PLUGIN_AUTHOR,
+	author = "quantum.",
 	description = "Sunucuya hızlı bir restart atmayı sağlar",
-	version = PLUGIN_VERSION,
-	url = SITE
+	version = "1.00",
+	url = "https://steamcommunity.com/id/quascave"
 };
 
 int Sure;
@@ -32,13 +27,13 @@ public void OnPluginStart()
 	RegAdminCmd("sm_hizliresiptal", QuickRes0, ADMFLAG_ROOT, "Sunucuya hızlı resi iptal eder");
 	RegAdminCmd("sm_quickresiptal", QuickRes0, ADMFLAG_ROOT, "Sunucuya hızlı resi iptal eder");
 	
-	g_EklentiTagi = CreateConVar("quantum_eklenti_tagi", "SM", "Bütün eklentilerin reklamlarını buradan değiştirebilirsiniz. ([ ] gibi işaretler koymayınız)");
-	g_MaxSure = CreateConVar("quantum_max_hizlires", "30", "Max Verilebilecek HizliRes Süresi");
+	g_EklentiTagi = CreateConVar("quickres_eklenti_tagi", "SM", "Bütün eklentilerin reklamlarını buradan değiştirebilirsiniz. ([ ] gibi işaretler koymayınız)");
+	g_MaxSure = CreateConVar("quickres_max_sure", "30", "Max Verilebilecek HizliRes Süresi");
 }
 
 public void OnMapStart()
 {
-	AutoExecConfig(true, "quantum_quickres");
+	AutoExecConfig(true, "QuickRestart", "quantum");
 }
 
 public Action QuickRes0(int client, int args)
@@ -51,7 +46,7 @@ public Action QuickRes0(int client, int args)
 	}
 	char EklentiTagi[64];
 	GetConVarString(g_EklentiTagi, EklentiTagi, sizeof(EklentiTagi));
-	PrintToChatAll(" \x02[%s] \x10%N \x0Etarafından hızlı restart işlemi iptal edildi", EklentiTagi, client);
+	PrintToChatAll(" [%s] \x10%N \x0Etarafından hızlı restart işlemi iptal edildi", EklentiTagi, client);
 }
 
 public Action QuickRes(int client, int args)
@@ -64,7 +59,7 @@ public Action QuickRes(int client, int args)
 		GetCmdArg(1, arg1, sizeof(arg1));
 		if(StringToInt(arg1) <= 0)
 		{
-			PrintToChat(client, " \x02[%s] \x10%N \x0Ehızlı restart süresi 0'dan büyük olmalıdır!", EklentiTagi, client);
+			PrintToChat(client, " [%s] \x10%N \x0Ehızlı restart süresi 0'dan büyük olmalıdır!", EklentiTagi, client);
 		}
 		else
 		{
@@ -75,7 +70,7 @@ public Action QuickRes(int client, int args)
 			}
 			else
 			{
-				PrintToChat(client, " \x02[%s] \x10%N \x0Esüre aşımı yaptınız maksimum süre: \x01%d", EklentiTagi, client, GetConVarInt(g_MaxSure));
+				PrintToChat(client, " [%s] \x10%N \x0Esüre aşımı yaptınız maksimum süre: \x01%d", EklentiTagi, client, GetConVarInt(g_MaxSure));
 			}
 		}
 	}
