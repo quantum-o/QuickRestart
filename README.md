@@ -11,3 +11,4 @@
  | ConVar  | Varsayılan | Açıklama |
  | :---: | :---: | :---: |
  | `quickres_eklenti_tagi` | `SM`  | Eğer bir hosting kullanıyorsanız değiştirmeniz gerekmez çünkü muhtemelen otomatik değişecektir ! |
+ | `quickres_max_sure`  | `30` | Verilebilinecek maksimum quick restart zamanı |
