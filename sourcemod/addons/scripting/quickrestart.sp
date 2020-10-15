@@ -104,7 +104,7 @@ public Action QuickTimer(Handle timer)
 		SetConVarInt(FindConVar("mp_maxrounds"), 0, true, false);
 		for (int i = 1; i <= MaxClients; i++)
 		{
-			if (IsClientConnected(i))
+			if (IsClientInGame(i) && !IsFakeClient(i))
 			{
 				ForcePlayerSuicide(i);
 			}	
@@ -118,7 +118,7 @@ public Action MapDegis(Handle Timer)
 {
 	for (int i = 1; i <= MaxClients; i++)
 	{
-		if (IsClientConnected(i) && !IsFakeClient(i))
+		if (IsClientInGame(i) && !IsFakeClient(i))
 		{
 			ClientCommand(i, "retry");
 		}
