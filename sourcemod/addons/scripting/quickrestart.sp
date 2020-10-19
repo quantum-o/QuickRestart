@@ -123,9 +123,10 @@ public Action MapDegis(Handle Timer)
 			ClientCommand(i, "retry");
 		}
 	}
-	char map[256];
+	/*char map[256];
 	GetCurrentMap(map, sizeof(map));
-	ForceChangeLevel(map, "QuickRestart");
+	ForceChangeLevel(map, "QuickRestart");*/
+	ServerCommand("_restart");
 }
 
 void SendPanelToAll(char[] message)
